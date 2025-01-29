@@ -1,6 +1,8 @@
 import React from 'react';
 import { useLoaderData, useParams } from 'react-router-dom';
 import './BookDetails.css'
+import { addToStoredReadList } from '../../utils/Utils';
+import { addToStoredWishList } from '../../utils/wishlist';
 
 
 const BookDetails = () => {
@@ -11,14 +13,23 @@ const BookDetails = () => {
     const book = data.find(book => book.bookId === id);
 
     const { author, bookName, image, publisher, review, totalPages, yearOfPublishing, tags, category, rating } = book;
+
+    const addToLs =(id)=>
+    {
+        addToStoredReadList(id)
+    }
+    const addToLsWish =(id)=>
+    {
+        addToStoredWishList(id)
+    }
     return (
         <div className="hero bg-slate-50 min-h-screen max-w-[1200px] mx-auto my-10 rounded-2xl">
             <div className="hero-content flex-col lg:flex-row gap-20">
-                <div className='w-[100%]'>
+                <div className='w-[90%] mx-2 '>
 
                     <img
                         src={image}
-                        class="max-w-lg rounded-lg shadow-2xl p-16" />
+                        class="max-w-full md:max-w-lg rounded-lg shadow-2xl p-16" />
                 </div>
                 <div className='flex flex-col gap-5 '>
                     <h1 className="text-5xl font-bold  font-playball body">{bookName}</h1>
@@ -42,8 +53,8 @@ const BookDetails = () => {
                         <h4>Rating : <span className='font-bold ml-[95px]'>{rating}</span></h4>
                     </div>
                     <div className='flex gap-6'>
-                        <button className="w-fit btn px-6 py-6 border-gray-400">Read</button>
-                        <button className="w-fit btn btn-primary px-6 py-6">Wishlist</button>
+                        <button onClick={()=> addToLs(bookId)} className="w-fit btn px-6 py-6 border-gray-400">Read</button>
+                        <button onClick={()=> addToLsWish(bookId)} className="w-fit btn btn-primary px-6 py-6">Wishlist</button>
                     </div>
                 </div>
             </div>

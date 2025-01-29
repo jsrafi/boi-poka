@@ -1,0 +1,29 @@
+const getLocalData =()=>
+    {
+      const storedListStr = localStorage.getItem('wish-list')
+      if(storedListStr)
+      {
+         const storedList = JSON.parse(storedListStr)
+         return storedList;
+      }
+      else
+      {
+        return [];
+      }
+    }
+    
+    const addToStoredWishList =(id)=>
+    {
+        const storedList = getLocalData()
+        if(storedList.includes(id))
+        {
+            alert('already added')
+        }
+        else{
+            storedList.push(id)
+            const storedListStr = JSON.stringify(storedList)
+            localStorage.setItem('wish-list' , storedListStr);
+        }
+    }
+    
+    export {addToStoredWishList}
